@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  aws:
+    image: abdennour/aws
+    volumes:
+      - .:/code
+      - aws-creds:/root/.aws
+    restart: "no"
+    working_dir: /code
+    environment:
+      AWS_PROFILE: terraform
+
+  terraform:
+    image: hashicorp/terraform:0.12.24
+    volumes:
+      - .:/code
+      - aws-creds:/root/.aws
+    working_dir: /code
+    environment:
+      AWS_PROFILE: terraform
+
+  kubectl:
+    image: abdennour/kubectl:v1.14.7-aws1.16.277
+    restart: "no"
+    working_dir: /code
+    volumes:
+      - .:/code
+      - aws-creds:/root/.aws:ro
+    entrypoint: kubectl
+    environment:
+      AWS_PROFILE: terraform
+      KUBECONFIG: /code/kubeconfig_awesome
+
+volumes:
+  aws-creds:
+    name: aws-creds
