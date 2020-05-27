@@ -25,11 +25,12 @@ module "vpc" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "6.0.2"
+  version = "7.0.0"
   # insert the 4 required variables here
   cluster_name = "${local.cluster_name}"
   subnets = module.vpc.public_subnets
   vpc_id = module.vpc.vpc_id
+  map_users = var.map_users
   # worker nodes
 
     worker_groups = [
