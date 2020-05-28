@@ -33,13 +33,15 @@ module "eks" {
   map_users = var.map_users
   # worker nodes
 
-    worker_groups = [
+    worker_groups_launch_template = [
     {
       name                          = "worker-group-1"
       instance_type                 = "t2.small"
-      additional_userdata           = "echo foo bar"
-      asg_desired_capacity          = 2
-      
+      asg_max_size = 5
+      asg_min_size = 2
+      asg_desired_capacity = 2
+      autoscaling_enable = true
+      public_ip = true
     }
   ]
 }
