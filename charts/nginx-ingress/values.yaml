@@ -1,17 +1,2 @@
 rbac:
   create: true
-
-  controller:
-  service:
-    targetPorts:
-      http: http
-      https: http
-    annotations:
-      service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:219077731788:certificate/4a55043f-f695-4e98-b76e-4dc7d1757091
-      service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
-      service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
-      service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: '3600'
-      nginx.ingress.kubernetes.io/configuration-snippet: |
-        if ($http_x_forwarded_proto != 'https') {
-          return 301 https://$host$request_uri;
-        }
