@@ -4,3 +4,4 @@
 *.md
 LICENSE
 terraform.tfstate
+.env.secrets
