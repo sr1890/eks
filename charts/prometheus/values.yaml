@@ -25,13 +25,14 @@ prometheus:
               storage: 10Gi
 
 grafana:
+  adminPassword: happy1890
   ingress:
     enabled: true
     annotations:
       kubernetes.io/ingress.class: nginx
       kubernetes.io/tls-acme: "false"
     hosts:
-      - grafana.kubernetes.tn
+      - grafana.shivify.com
     # tls:
     #   - secretName: grafana-tls
     #     hosts:
