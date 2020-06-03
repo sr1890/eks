@@ -27,7 +27,7 @@ module "vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    "kubernetes.io/cluster/awesome" = "shared"
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
   }
 
 }
@@ -45,7 +45,7 @@ module "eks" {
     worker_groups_launch_template = [
     {
       name                          = "worker-group-1"
-      instance_type                 = "t2.medium"
+      instance_type                 = "t3.large"
       asg_max_size = 5
       asg_min_size = 2
       asg_desired_capacity = 2
