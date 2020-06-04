@@ -34,7 +34,7 @@ module "vpc" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "7.0.0"
+  version = "9.0.0"
   # insert the 4 required variables here
   cluster_name = "${local.cluster_name}"
   subnets = module.vpc.public_subnets
