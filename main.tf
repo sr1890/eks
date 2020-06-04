@@ -7,6 +7,7 @@ data "aws_availability_zones" "available" {
   
 }
 
+
 terraform {
   backend "s3" {
     bucket         = "terraform-eks-state-sr"
@@ -31,6 +32,25 @@ module "vpc" {
   }
 
 }
+
+ #static config of k8s provider - TMP
+ provider "kubernetes" {
+   host = module.eks.cluster_endpoint
+   load_config_file = true
+   # kubeconfig file relative to path where you execute tf, in my case it is the same dir
+   config_path      = "kubeconfig_${local.cluster_name}"
+   version = "~> 1.9"
+ }
+
+# dynamic 
+# provider "kubernetes" {
+#  host                   = data.aws_eks_cluster.cluster.endpoint
+#  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+#  token                  = data.aws_eks_cluster_auth.cluster.token
+#  load_config_file       = false
+#  version                = "~> 1.9"
+#}
+
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
